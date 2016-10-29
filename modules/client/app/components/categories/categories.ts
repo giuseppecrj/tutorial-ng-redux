@@ -1,27 +1,47 @@
 import { module } from 'angular'
 import CategoryItemModule from './category-item/category-item'
 
+import { categories, GET_CATEGORIES, category, GET_CURRENT_CATEGORY } from './categories.state'
+
 import template from './categories.html'
 import './categories.css'
 
 class CategoriesController {
-  static $inject = ['CategoriesModel']
-  constructor (CategoriesModel) {
-    this.CategoriesModel = CategoriesModel
+  static $inject = ['$timeout', 'store']
+  constructor ($timeout, store) {
+    this.$timeout = $timeout
+    this.store = store
   }
 
   $onInit () {
-    this.CategoriesModel.getCategories()
-      .then((result) => { this.categories = result })
+    this.store.dispatch({ type: GET_CATEGORIES })
+    this.categories = this.store.getState()
+
+    this.$timeout(() => {
+      const payload = [
+        { id: 0, name: 'Redux' },
+        { id: 1, name: 'Angular' }
+      ]
+      this.store.dispatch({ type: GET_CATEGORIES, payload })
+      this.categories = this.store.getState()
+    }, 3000)
+
+    this.$timeout(() => {
+      const payload = [
+        { id: 0, name: 'Uh, oh!' }
+      ]
+      this.store.dispatch({ type: GET_CATEGORIES, payload })
+      this.categories = this.store.getState()
+    }, 6000)
   }
 
-  onCategorySelected (category) {
-    this.CategoriesModel.setCurrentCategory(category)
+  onCategorySelected (currentCategory) {
+    this.currentCategory = category(this.currentCategory, { type: GET_CURRENT_CATEGORY, payload: currentCategory })
   }
 
   isCurrentCategory (category) {
-    return this.CategoriesModel.getCurrentCategory() &&
-      this.CategoriesModel.getCurrentCategory().id === category.id
+    return this.currentCategory &&
+      this.currentCategory.id === category.id
   }
 }
 
