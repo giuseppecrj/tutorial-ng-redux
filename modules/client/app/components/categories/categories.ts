@@ -1,42 +1,44 @@
 import { module } from 'angular'
 import CategoryItemModule from './category-item/category-item'
 
-import { categories, GET_CATEGORIES, category, GET_CURRENT_CATEGORY } from './categories.state'
+import { category, CategoriesActions } from './categories.state'
 
 import template from './categories.html'
 import './categories.css'
 
 class CategoriesController {
-  static $inject = ['$timeout', 'store']
-  constructor ($timeout, store) {
+  static $inject = ['$timeout', 'store', 'CategoriesActions']
+  constructor ($timeout, store, CategoriesActions) {
     this.$timeout = $timeout
     this.store = store
+    this.CategoriesActions = CategoriesActions
   }
 
   $onInit () {
-    this.store.dispatch({ type: GET_CATEGORIES })
-    this.categories = this.store.getState()
+    this.store.subscribe(() => {
+      this.categories = this.store.getState()
+    })
+
+    this.store.dispatch(this.CategoriesActions.getCategories())
 
     this.$timeout(() => {
-      const payload = [
+      const categories = [
         { id: 0, name: 'Redux' },
         { id: 1, name: 'Angular' }
       ]
-      this.store.dispatch({ type: GET_CATEGORIES, payload })
-      this.categories = this.store.getState()
+      this.store.dispatch(this.CategoriesActions.getCategories(categories))
     }, 3000)
 
     this.$timeout(() => {
-      const payload = [
+      const categories = [
         { id: 0, name: 'Uh, oh!' }
       ]
-      this.store.dispatch({ type: GET_CATEGORIES, payload })
-      this.categories = this.store.getState()
+      this.store.dispatch(this.CategoriesActions.getCategories(categories))
     }, 6000)
   }
 
   onCategorySelected (currentCategory) {
-    this.currentCategory = category(this.currentCategory, { type: GET_CURRENT_CATEGORY, payload: currentCategory })
+    this.currentCategory = category(this.currentCategory, this.CategoriesActions.selectCategory(currentCategory))
   }
 
   isCurrentCategory (category) {
@@ -50,9 +52,9 @@ const CategoriesComponent = {
   controller: CategoriesController
 }
 
-const CategoriesModule = module('categories', [
-  CategoryItemModule.name
-])
+const CategoriesModule = module('categories',
+  [ CategoryItemModule.name ])
+  .factory('CategoriesActions', CategoriesActions)
   .component('categories', CategoriesComponent)
 
 export { CategoriesModule, CategoriesComponent, CategoriesController }
