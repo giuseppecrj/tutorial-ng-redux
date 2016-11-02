@@ -7,10 +7,10 @@ import template from './categories.html'
 import './categories.css'
 
 class CategoriesController {
-  static $inject = ['$timeout', 'store', 'CategoriesActions']
-  constructor ($timeout, store, CategoriesActions) {
+  static $inject = ['$timeout', '$ngRedux', 'CategoriesActions']
+  constructor ($timeout, $ngRedux, CategoriesActions) {
     this.$timeout = $timeout
-    this.store = store
+    this.store = $ngRedux
     this.CategoriesActions = CategoriesActions
   }
 

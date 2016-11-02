@@ -5,38 +5,7 @@ SystemJS.config({
     'quick-tutorial/': 'modules/client/'
   },
   browserConfig: {
-    'baseURL': '/',
-    'bundles': {
-      'public/client/javascripts/main.js': [
-        'quick-tutorial/main.ts',
-        'quick-tutorial/app/app.client.component.ts',
-        'quick-tutorial/app/components/categories/categories.state.ts',
-        'github:frankwallis/plugin-typescript@5.0.9.json',
-        'quick-tutorial/app/app.client.store.ts',
-        'quick-tutorial/app/app.client.component.css',
-        'quick-tutorial/app/app.client.component.html',
-        'quick-tutorial/app/components/components.ts',
-        'quick-tutorial/app/components/categories/categories.ts',
-        'quick-tutorial/app/components/categories/categories.css',
-        'quick-tutorial/app/components/categories/categories.html',
-        'quick-tutorial/app/components/categories/category-item/category-item.ts',
-        'quick-tutorial/app/components/categories/category-item/category-item.css',
-        'quick-tutorial/app/components/categories/category-item/category-item.html',
-        'github:angular/bower-angular@1.5.8/angular.js',
-        'github:angular/bower-angular@1.5.8.json',
-        'quick-tutorial/app/components/bookmarks/bookmarks.ts',
-        'quick-tutorial/app/components/bookmarks/bookmarks.css',
-        'quick-tutorial/app/components/bookmarks/bookmarks.html',
-        'quick-tutorial/app/components/bookmarks/save-bookmark/save-bookmark.ts',
-        'quick-tutorial/app/components/bookmarks/save-bookmark/save-bookmark.css',
-        'quick-tutorial/app/components/bookmarks/save-bookmark/save-bookmark.html',
-        'quick-tutorial/app/common/common.ts',
-        'quick-tutorial/app/common/models/categories.model.ts',
-        'quick-tutorial/app/common/models/bookmarks.model.ts',
-        'npm:lodash@4.16.4/lodash.js',
-        'npm:lodash@4.16.4.json'
-      ]
-    }
+    'baseURL': '/'
   },
   devConfig: {
     'map': {
@@ -104,7 +73,8 @@ SystemJS.config({
     'css': 'github:systemjs/plugin-css@0.1.32',
     'events': 'npm:jspm-nodelibs-events@0.2.0',
     'fs': 'npm:jspm-nodelibs-fs@0.2.0',
-    'lodash': 'npm:lodash@4.16.4',
+    'jquery': 'npm:jquery@3.1.1',
+    'lodash': 'npm:lodash@4.16.6',
     'ng-redux': 'npm:ng-redux@3.4.0-beta.1',
     'normalize.scss': 'npm:normalize.scss@0.1.0',
     'os': 'npm:jspm-nodelibs-os@0.2.0',
@@ -295,10 +265,10 @@ SystemJS.config({
     },
     'npm:redux@3.6.0': {
       'map': {
-        'lodash': 'npm:lodash@4.16.4',
+        'lodash': 'npm:lodash@4.16.6',
         'loose-envify': 'npm:loose-envify@1.3.0',
         'symbol-observable': 'npm:symbol-observable@1.0.4',
-        'lodash-es': 'npm:lodash-es@4.16.4'
+        'lodash-es': 'npm:lodash-es@4.16.6'
       }
     },
     'npm:lodash.isplainobject@3.2.0': {
